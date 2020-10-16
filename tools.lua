@@ -26,4 +26,3 @@ function verco()
 	windows_terminal_run_command_on_split("verco")
 end
 v = verco
-keymap.normal("gv", ":verco()<enter>")
