@@ -1,7 +1,7 @@
 require "fzf"
 
 require "langs.rs"
-require "langs"
+require "langs.lua"
 require "langs.cs"
 require "langs.js"
 require "langs.html"
