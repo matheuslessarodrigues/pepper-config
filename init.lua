@@ -1,10 +1,10 @@
 require "fzf"
 
-require "rs"
-require "lua"
-require "cs"
-require "js"
-require "html"
+require "langs.rs"
+require "langs"
+require "langs.cs"
+require "langs.js"
+require "langs.html"
 
 keymap.normal("<c-s>", ":s<enter>")
 
