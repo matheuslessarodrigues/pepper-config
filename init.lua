@@ -1,10 +1,13 @@
 require "tools"
 
-require "langs.rs"
-require "langs.lua"
-require "langs.cs"
-require "langs.js"
-require "langs.html"
+buffer.on_open(function(handle)
+	if buffer.has_extension("rs", handle) then require "langs.rs"
+	elseif buffer.has_extension("lua", handle) then require "langs.lua"
+	elseif buffer.has_extension("cs", handle) then require "langs.cs"
+	elseif buffer.has_extension("js", handle) then require "langs.js"
+	elseif buffer.has_extension("html", handle) then require "langs.html"
+	end
+end)
 
 keymap.normal("<c-s>", ":s<enter>")
 
