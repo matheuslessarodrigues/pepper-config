@@ -11,22 +11,15 @@ end)
 
 keymap.normal("<c-s>", ":s<enter>")
 
-function pipe_from_input()
+function run_shell()
 	read_line.prompt("!")
-	read_line.read(function(input)
-		if input == nil then
+	read_line.read(function(command)
+		if command == nil then
 			return
 		end
 	
-		local iter = string.gmatch(input, "%S+")
-		local command = iter()
-		local args = {}
-		for a in iter do
-			args[#args + 1] = a
-		end
-		
-		local output = process.pipe(command, args)
+		local output = process.pipe("sh", {"-c", command})
 		print(output)
 	end)
 end
-keymap.normal("!", ":pipe_from_input()<enter>")
+keymap.normal("!", ":run_shell()<enter>")
