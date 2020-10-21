@@ -5,7 +5,7 @@ function windows_terminal_run_command_on_split(command)
 		[[" | out-file -encoding ASCII "$home/pepper-command"; [System.Windows.Forms.SendKeys]::SendWait("^+%{f5}")]]
 	process.spawn("powershell", {"-noprofile", "-nologo", "-noninteractive", "-command", powershell_command})
 end
-	
+
 function fzf_conhost()
 	local client_arg = "--as-client " .. client.index()
 	local command = [[fd.exe --path-separator / . | fzf.exe | xargs -rI FILE pepper ]] .. client_arg .. [[ FILE]]
@@ -21,6 +21,33 @@ function fzf()
 	fzf_windows_terminal()
 end
 keymap.normal("<c-o>", ":fzf()<enter>")
+
+function ripgrep()
+	read_line.prompt("rg:")
+	read_line.read(function(input)
+		if input == nil then
+			return
+		end
+		
+		picker.reset()
+		picker.prompt("jump:")
+		
+		local matches = process.pipe("rg", {"--line-number", input})
+		for match in string.gmatch(matches, "[^\r\n]+") do
+			local file, line, text = string.match(match, "([^:]+):([^:]+):%s*(.*)")
+			picker.entry(file .. ":" .. line, text)
+		end
+		picker.pick(function(file_and_line)
+			if file_and_line == nil then
+				return
+			end
+			
+			local file, line = string.match(file_and_line, "([^:]+):([^:]+)")
+			buffer.open(file, line)
+		end)
+	end)
+end
+keymap.normal("<c-f>", ":ripgrep()<enter>")
 
 function verco()
 	windows_terminal_run_command_on_split("verco")
