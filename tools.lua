@@ -6,6 +6,10 @@ function windows_terminal_run_command_on_split(command)
 	process.spawn("powershell", {"-noprofile", "-nologo", "-noninteractive", "-command", powershell_command})
 end
 
+function sh()
+	windows_terminal_run_command_on_split("sh")
+end
+
 function fzf_conhost()
 	local client_arg = "--as-client " .. client.index()
 	local command = [[fd.exe --path-separator / . | fzf.exe | xargs -rI FILE pepper ]] .. client_arg .. [[ FILE]]
