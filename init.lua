@@ -35,7 +35,7 @@ function run_shell()
 			return
 		end
 	
-		local output = process.spawn("sh", {"-c", command})
+		local output = process.pipe("sh", {"-c", command})
 		print(output)
 	end)
 end
