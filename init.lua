@@ -1,5 +1,22 @@
 require "tools"
 
+function copy()
+	local selection = buffer_view.selection_text()
+	if #selection > 0 then
+		process.pipe("copycat", {"-i"}, selection)
+	end
+end
+keymap.normal("y", ":copy<enter>")
+
+function paste()
+	buffer_view.delete_selection()
+	local text = process.pipe("copycat", {"-o"})
+	if #text > 0 then
+		buffer_view.insert_text(text)
+	end
+end
+keymap.normal("Y", ":paste<enter>")
+
 buffer.on_open(function(handle)
 	if buffer.has_extension("rs", handle) then require "langs.rs"
 	elseif buffer.has_extension("lua", handle) then require "langs.lua"
@@ -18,8 +35,8 @@ function run_shell()
 			return
 		end
 	
-		local output = process.pipe("sh", {"-c", command})
+		local output = process.spawn("sh", {"-c", command})
 		print(output)
 	end)
 end
-keymap.normal("!", ":run_shell()<enter>")
+keymap.normal("!", ":run_shell<enter>")
