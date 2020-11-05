@@ -36,7 +36,12 @@ function ripgrep()
 		picker.reset()
 		picker.prompt("jump:")
 		
-		local matches = process.pipe("rg", {"--line-number", input})
+		local matches, stderr, success = process.pipe("rg", {"--line-number", input})
+		if not success then
+			print("error:\n" .. stderr)
+			return
+		end
+		
 		for match in string.gmatch(matches, "[^\r\n]+") do
 			local file, line, text = string.match(match, "([^:]+):([^:]+):%s*(.*)")
 			picker.entry(file .. ":" .. line, text)

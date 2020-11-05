@@ -10,9 +10,9 @@ keymap.normal("y", ":copy<enter>")
 
 function paste()
 	buffer_view.delete_selection()
-	local text = process.pipe("copycat", {"-o"})
-	if #text > 0 then
-		buffer_view.insert_text(text)
+	local stdout, stderr, succes = process.pipe("copycat", {"-o"})
+	if success and #stdout > 0 then
+		buffer_view.insert_text(stdout)
 	end
 end
 keymap.normal("Y", ":paste<enter>")
@@ -36,8 +36,8 @@ function run_shell()
 			return
 		end
 	
-		local output = process.pipe("sh", {"-c", command})
-		print(output)
+		local stdout = process.pipe("sh", {"-c", command})
+		print(stdout)
 	end)
 end
 keymap.normal("!", ":run_shell<enter>")
