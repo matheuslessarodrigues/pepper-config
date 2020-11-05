@@ -10,7 +10,7 @@ keymap.normal("y", ":copy<enter>")
 
 function paste()
 	buffer_view.delete_selection()
-	local stdout, stderr, succes = process.pipe("copycat", {"-o"})
+	local stdout, stderr, success = process.pipe("copycat", {"-o"})
 	if success and #stdout > 0 then
 		buffer_view.insert_text(stdout)
 	end
