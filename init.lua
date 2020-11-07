@@ -17,13 +17,20 @@ function paste()
 end
 keymap.normal("Y", ":paste<enter>")
 
+langs = {}
+for i,ext in ipairs({"rs", "lua", "cs", "js", "html", "md"}) do
+	langs[#langs + 1] = {
+		glob = glob.compile("**." .. ext),
+		module = "langs." .. ext
+	}
+end
+
 buffer.on_open(function(handle)
-	if buffer.has_extension("rs", handle) then require "langs.rs"
-	elseif buffer.has_extension("lua", handle) then require "langs.lua"
-	elseif buffer.has_extension("cs", handle) then require "langs.cs"
-	elseif buffer.has_extension("js", handle) then require "langs.js"
-	elseif buffer.has_extension("html", handle) then require "langs.html"
-	elseif buffer.has_extension("md", handle) then require "langs.md"
+	for i,lang in ipairs(langs) do
+		if buffer.path_matches(lang.glob) then
+			require(lang.module)
+			return
+		end
 	end
 end)
 
