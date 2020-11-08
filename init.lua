@@ -20,7 +20,7 @@ keymap.normal("Y", ":paste<enter>")
 langs = {}
 for i,ext in ipairs({"rs", "lua", "cs", "js", "html", "md"}) do
 	langs[#langs + 1] = {
-		glob = glob.compile("**." .. ext),
+		glob = glob.compile("**/*." .. ext),
 		module = "langs." .. ext
 	}
 end
