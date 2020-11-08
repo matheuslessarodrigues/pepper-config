@@ -27,7 +27,7 @@ end
 
 buffer.on_open(function(handle)
 	for i,lang in ipairs(langs) do
-		if buffer.path_matches(lang.glob) then
+		if buffer.path_matches(lang.glob, handle) then
 			require(lang.module)
 			return
 		end
