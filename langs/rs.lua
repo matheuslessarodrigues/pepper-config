@@ -1,4 +1,4 @@
-syntax.rules("**.rs", {
+syntax.rules("**/*.rs", {
 	keyword = {"fn", "let", "if", "while", "for", "return", "mod", "use", "as", "in", "enum", "struct", "impl",
 		"where", "mut", "pub"},
 	symbol = {"%(", "%)", "%[", "%]", "%{", "%}", ":", ";", ",", "=", "<", ">", "+", "-", "/", "*", "%%", "%!",

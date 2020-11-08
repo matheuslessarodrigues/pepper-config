@@ -1,4 +1,4 @@
-syntax.rules("**.html", {
+syntax.rules("**/*.html", {
 	type = {"%!DOCTYPE"},
 	comment = {"<%!--{!(-->).$}"},
 	keyword = {"<{%w_-}", "</{%w_-}", ">", "/>"}, 

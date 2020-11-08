@@ -1,4 +1,4 @@
-syntax.rules("**.cs", {
+syntax.rules("**/*.cs", {
 	keyword = {"abstract", "as", "base", "break", "case", "catch", "checked", "class", "const", "continue", "default",
 		"delegate", "do", "else", "enum", "event", "explicit", "extern", "finally", "fixed", "for", "foreach", "goto",
 		"if", "implicit", "in", "interface", "internal", "is", "lock", "namespace", "new", "operator", "out", "override",

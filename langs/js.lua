@@ -1,4 +1,4 @@
-syntax.rules("**.js", {
+syntax.rules("**/*.js", {
 	keyword = {"break", "export", "super", "case", "extends", "switch", "catch", "finally", "class", "for", "throw",
 		"const", "function", "try", "continue", "if", "typeof", "debugger", "import", "var", "default", "in", "void",
 		"delete", "instanceof", "while", "do", "new", "with", "else", "return", "yield", "enum", "implements", "package",
