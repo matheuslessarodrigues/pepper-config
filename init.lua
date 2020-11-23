@@ -16,11 +16,7 @@ function try_load_language(handle)
 		end
 	end
 end
-buffer.on_open(function(handle, new_buffer)
-	if new_buffer then
-		try_load_language(handle)
-	end
-end)
+buffer.on_load(try_load_language)
 buffer.on_save(function(handle, new_path)
 	if new_path then
 		try_load_language(handle)
