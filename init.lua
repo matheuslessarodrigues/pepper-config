@@ -1,17 +1,17 @@
-require "tools"
+editor.source("tools.lua")
 
 langs = {}
 for i,ext in ipairs({"rs", "lua", "cs", "js", "html", "md"}) do
 	langs[#langs + 1] = {
 		glob = glob.compile("**/*." .. ext),
-		module = "langs." .. ext
+		module = "langs/" .. ext .. ".lua"
 	}
 end
 
 function try_load_language(handle)
 	for i, lang in ipairs(langs) do
 		if buffer.path_matches(lang.glob, handle) then
-			require(lang.module)
+			editor.source(lang.module)
 			return
 		end
 	end
