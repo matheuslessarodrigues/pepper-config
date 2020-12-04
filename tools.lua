@@ -11,8 +11,7 @@ function sh()
 end
 
 function fzf_conhost()
-	local client_arg = "--as-client " .. client.index()
-	local command = [[fd.exe --path-separator / . | fzf.exe | xargs -rI FILE pepper ]] .. client_arg .. [[ FILE]]
+	local command = [[fd -tf --path-separator / . | fzf | xargs -rI FILE pepper --as-focused-client "FILE" ]]
 	process.spawn("conhost", {"sh", "-c", command})
 end
 
