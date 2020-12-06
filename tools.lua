@@ -33,7 +33,7 @@ function find_file()
 	picker.prompt("open:")
 	
 	local picked = false
-	process.stream("fd", {"-tf", "--path-separator", "/", "."}, nil, function(output)
+	process.spawn("fd", {"-tf", "--path-separator", "/", "."}, nil, function(output)
 		-- this callback is called whenever there's new output from the spawned process
 		-- and once more at the end with 'output = nil' to indicate that the process finished
 		if picked or output == nil then
@@ -81,7 +81,7 @@ function ripgrep()
 		args[#args + 1] = search_pattern
 		
 		local picked = false
-		process.stream("rg", args, nil, function(output)
+		process.spawn("rg", args, nil, function(output)
 			-- this callback is called whenever there's new output from the spawned process
 			-- and once more at the end with 'output = nil' to indicate that the process finished
 			if picked or output == nil then
