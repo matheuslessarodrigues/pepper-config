@@ -10,7 +10,7 @@ function run_shell()
 			return
 		end
 	
-		local stdout = process.pipe("sh", {"-c", command})
+		local stdout = process.pipe("sh", {"-c", command}) -- when this returns, the process will have finished
 		print(stdout)
 	end)
 end
