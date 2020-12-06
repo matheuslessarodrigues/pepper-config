@@ -23,33 +23,69 @@ function fzf()
 	--fzf_conhost()
 	fzf_windows_terminal()
 end
-keymap.normal("<c-o>", ":fzf()<enter>")
+--keymap.normal("<c-o>", ":fzf()<enter>")
+
+function find_file()
+	picker.reset()
+	picker.prompt("open:")
+	
+	local picked = false
+	process.stream("fd", {"-tf", "--path-separator", "/", "."}, nil, function(output)
+		if picked or output == nil then
+			return
+		end
+		for file in string.gmatch(output, "[^\r\n]+") do
+			picker.entry(file)
+		end
+	end)
+	
+	picker.pick(function(file)
+		picked = true
+		if file then
+			buffer.open(file)
+		end
+	end)
+end
+keymap.normal("<c-o>", ":find_file()<enter>")
 
 function ripgrep()
 	read_line.prompt("rg:")
-	read_line.read(function(input)
-		if input == nil then
+	read_line.read(function(search_pattern)
+		if search_pattern == nil then
 			return
 		end
 		
 		picker.reset()
 		picker.prompt("jump:")
 		
-		local matches, stderr, success = process.pipe("rg", {"--line-number", input})
-		if not success then
-			print("error:\n" .. stderr)
-			return
+		local args = {"--line-number"}
+		local buffer_path = buffer.path()
+		if buffer_path ~= nil then
+			local extension = string.match(buffer_path, "[^%.]%.(%w+)$")
+			if extension ~= nil then
+				args[#args + 1] = "--type-add"
+				args[#args + 1] = "t:*." .. extension
+				args[#args + 1] = "-tt"
+			end
 		end
+		args[#args + 1] = search_pattern
 		
-		for match in string.gmatch(matches, "[^\r\n]+") do
-			local file, line, text = string.match(match, "([^:]+):([^:]+):%s*(.*)")
-			picker.entry(file .. ":" .. line, text)
-		end
+		local picked = false
+		process.stream("rg", args, nil, function(output)
+			if picked or output == nil then
+				return
+			end
+			for match in string.gmatch(output, "[^\r\n]+") do
+				local file, line, text = string.match(match, "([^:]+):([^:]+):%s*(.*)")
+				picker.entry(file .. ":" .. line, text)
+			end
+		end)
+		
 		picker.pick(function(file_and_line)
+			picked = true
 			if file_and_line == nil then
 				return
 			end
-			
 			local file, line = string.match(file_and_line, "([^:]+):([^:]+)")
 			buffer.open(file, line)
 		end)
