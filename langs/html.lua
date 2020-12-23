@@ -2,7 +2,7 @@ syntax.rules("**/*.html", {
 	keyword = "<{%w_-}|</{%w_-}|>|/>", 
 	type = "%!DOCTYPE",
 	symbol = "=",
-	string = [['{(\\')!'.}|"{(\\")!".}]],
+	string = "'{(\\')!'.}|\"{(\\\")!\".}",
 	comment = "<%!--{!(-->).$}",
 	text = "{%w_-}",
 })
