@@ -3,7 +3,7 @@ function windows_terminal_run_command_on_split(command)
 		[[cd `$(echo `"$pwd`" | tr \\ /); ]] ..
 		command ..
 		[[" | out-file -encoding ASCII "$home/pepper-command"; [System.Windows.Forms.SendKeys]::SendWait("^+%{f5}")]]
-	process.spawn("powershell", {"-noprofile", "-nologo", "-noninteractive", "-command", powershell_command})
+	process_spawn("powershell", {"-noprofile", "-nologo", "-noninteractive", "-command", powershell_command})
 end
 
 function sh()
@@ -15,7 +15,7 @@ function fzf_conhost()
 	-- which will let us pass commands to the currently focused client (the one which invoked this function)
 	-- in this case, we use it to tell that client to open a new file
 	local command = [[fd -tf --path-separator / . | fzf | xargs -rI FILE pepper --as-focused-client "FILE" ]]
-	process.spawn("conhost", {"sh", "-c", command})
+	process_spawn("conhost", {"sh", "-c", command})
 end
 
 function fzf_windows_terminal()
@@ -26,14 +26,14 @@ function fzf()
 	--fzf_conhost()
 	fzf_windows_terminal()
 end
---keymap.normal("<c-o>", ":fzf()<enter>")
+--keymap_normal("<c-o>", ":fzf()<enter>")
 
 function find_file()
-	picker.reset()
-	picker.prompt("open:")
+	picker_reset()
+	picker_prompt("open:")
 	
 	local picked = false
-	process.spawn("fd", {"-tf", "--path-separator", "/", "."}, nil, function(output)
+	process_spawn("fd", {"-tf", "--path-separator", "/", "."}, nil, function(output)
 		-- this callback is called whenever there's new output from the spawned process
 		-- and once more at the end with 'output = nil' to indicate that the process finished
 		if picked or output == nil then
@@ -41,34 +41,34 @@ function find_file()
 		end
 		-- iterate over 'output' lines
 		for file in string.gmatch(output, "[^\r\n]+") do
-			picker.entry(file)
+			picker_entry(file)
 		end
 	end)
 	
-	picker.pick(function(file)
+	picker_pick(function(file)
 		picked = true
 		-- if a file was picked, open it
 		if file then
-			buffer.open(file)
+			buffer_open(file)
 		end
 	end)
 end
-keymap.normal("<c-o>", ":find_file()<enter>")
+keymap_normal("<c-o>", ":find_file()<enter>")
 
 function ripgrep()
-	read_line.prompt("rg:")
+	read_line_prompt("rg:")
 	-- first a search pattern is read from the user
-	read_line.read(function(search_pattern)
+	read_line_read(function(search_pattern)
 		-- early return if action was canceled
 		if search_pattern == nil then
 			return
 		end
 		
-		picker.reset()
-		picker.prompt("jump:")
+		picker_reset()
+		picker_prompt("jump:")
 		
 		local args = {"--line-number"}
-		local buffer_path = buffer.path()
+		local buffer_path = buffer_path()
 		-- maybe restrict searched files based on their extension
 		if buffer_path ~= nil then
 			local extension = string.match(buffer_path, "[^%.]%.(%w+)$")
@@ -81,7 +81,7 @@ function ripgrep()
 		args[#args + 1] = search_pattern
 		
 		local picked = false
-		process.spawn("rg", args, nil, function(output)
+		process_spawn("rg", args, nil, function(output)
 			-- this callback is called whenever there's new output from the spawned process
 			-- and once more at the end with 'output = nil' to indicate that the process finished
 			if picked or output == nil then
@@ -90,22 +90,22 @@ function ripgrep()
 			-- iterate over 'output' lines
 			for match in string.gmatch(output, "[^\r\n]+") do
 				local file, line, text = string.match(match, "([^:]+):([^:]+):%s*(.*)")
-				picker.entry(file .. ":" .. line, text)
+				picker_entry(file .. ":" .. line, text)
 			end
 		end)
 		
-		picker.pick(function(file_and_line)
+		picker_pick(function(file_and_line)
 			picked = true
 			-- early return if no file was picked
 			if file_and_line == nil then
 				return
 			end
 			local file, line = string.match(file_and_line, "([^:]+):([^:]+)")
-			buffer.open(file, line)
+			buffer_open(file, line)
 		end)
 	end)
 end
-keymap.normal("<c-f>", ":ripgrep()<enter>")
+keymap_normal("<c-f>", ":ripgrep()<enter>")
 
 function verco()
 	windows_terminal_run_command_on_split("verco")

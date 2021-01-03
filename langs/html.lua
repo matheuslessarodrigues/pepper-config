@@ -1,4 +1,4 @@
-syntax.rules("**/*.html", {
+syntax_rules("**/*.html", {
 	keyword = "<{%w_-}|</{%w_-}|>|/>", 
 	type = "%!DOCTYPE",
 	symbol = "=",

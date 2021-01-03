@@ -1,4 +1,4 @@
-syntax.rules("**/*.md", {
+syntax_rules("**/*.md", {
 	keyword = "#{.}$",
 	symbol = "%||%!|-",
 	literal = "%[{!%].}%({!%).}",

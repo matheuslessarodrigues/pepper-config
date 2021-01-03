@@ -1,17 +1,17 @@
-script.source("tools.lua")
-script.source("langs/init.lua")
+script_source("tools.lua")
+script_source("langs/init.lua")
 
-keymap.normal("<c-s>", ":s<enter>")
+keymap_normal("<c-s>", ":s<enter>")
 
 function run_shell()
-	read_line.prompt("!")
-	read_line.read(function(command)
+	read_line_prompt("!")
+	read_line_read(function(command)
 		if command == nil then
 			return
 		end
 	
-		local stdout = process.pipe("sh", {"-c", command}) -- when this returns, the process will have finished
+		local stdout = process_pipe("sh", {"-c", command}) -- when this returns, the process will have finished
 		print(stdout)
 	end)
 end
-keymap.normal("!", ":run_shell<enter>")
+keymap_normal("!", ":run_shell<enter>")

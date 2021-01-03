@@ -1,9 +1,9 @@
-local directory = script.directory(); -- remembers the directory from where this very script as loaded
+local directory = script_directory(); -- remembers the directory from where this very script as loaded
 local langs = {}
 for i,ext in ipairs({"rs", "lua", "cs", "js", "html", "md"}) do
 	langs[#langs + 1] = {
 		loaded = false, -- remembers if this language was already loaded
-		glob = glob.compile("**/*." .. ext),
+		glob = glob_compile("**/*." .. ext),
 		path = directory .. "/" .. ext .. ".lua", -- will look for a file named 'ext.lua' in the same directory
 	}
 end
@@ -13,7 +13,7 @@ function try_load_language(buffer_handle)
 	-- matches the language's glob
 	for i, lang in ipairs(langs) do
 		if not lang.loaded then -- only do work if not loaded
-			if buffer.path_matches(lang.glob, buffer_handle) then
+			if buffer_path_matches(lang.glob, buffer_handle) then
 				lang.loaded = true
 				script.source(lang.path) -- source language script
 				return
@@ -22,8 +22,8 @@ function try_load_language(buffer_handle)
 	end
 end
 
-buffer.on_load(try_load_language) -- try to load language when a new buffer is loaded
-buffer.on_save(function(buffer_handle, new_path) -- try to load language when buffer changes its path
+buffer_on_load(try_load_language) -- try to load language when a new buffer is loaded
+buffer_on_save(function(buffer_handle, new_path) -- try to load language when buffer changes its path
 	if new_path then
 		try_load_language(buffer_handle)
 	end
