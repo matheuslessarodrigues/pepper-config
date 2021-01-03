@@ -30,7 +30,7 @@ end
 
 function find_file()
 	picker_reset()
-	picker_prompt("open:")
+	read_line_prompt("open:")
 	
 	local picked = false
 	process_spawn("fd", {"-tf", "--path-separator", "/", "."}, nil, function(output)
@@ -65,7 +65,7 @@ function ripgrep()
 		end
 		
 		picker_reset()
-		picker_prompt("jump:")
+		read_line_prompt("jump:")
 		
 		local args = {"--line-number"}
 		local buffer_path = buffer_path()
