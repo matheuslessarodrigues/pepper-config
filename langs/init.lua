@@ -15,7 +15,7 @@ function try_load_language(buffer_handle)
 		if not lang.loaded then -- only do work if not loaded
 			if buffer_path_matches(lang.glob, buffer_handle) then
 				lang.loaded = true
-				script.source(lang.path) -- source language script
+				script_source(lang.path) -- source language script
 				return
 			end
 		end
