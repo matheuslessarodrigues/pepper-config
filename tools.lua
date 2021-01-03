@@ -30,13 +30,14 @@ end
 
 function find_file()
 	picker_reset()
-	read_line_prompt("open:")
+	read_line_prompt("open(searching...):")
 	
 	local picked = false
 	process_spawn("fd", {"-tf", "--path-separator", "/", "."}, nil, function(output)
 		-- this callback is called whenever there's new output from the spawned process
 		-- and once more at the end with 'output = nil' to indicate that the process finished
 		if picked or output == nil then
+			read_line_prompt("open:")
 			return
 		end
 		-- iterate over 'output' lines
@@ -53,7 +54,7 @@ function find_file()
 		end
 	end)
 end
-keymap_normal("<c-o>", ":find_file()<enter>")
+keymap_normal("<c-o>", ": find_file()<enter>")
 
 function ripgrep()
 	read_line_prompt("rg:")
@@ -65,7 +66,7 @@ function ripgrep()
 		end
 		
 		picker_reset()
-		read_line_prompt("jump:")
+		read_line_prompt("jump(searching...):")
 		
 		local args = {"--line-number"}
 		local buffer_path = buffer_path()
@@ -85,6 +86,7 @@ function ripgrep()
 			-- this callback is called whenever there's new output from the spawned process
 			-- and once more at the end with 'output = nil' to indicate that the process finished
 			if picked or output == nil then
+				read_line_prompt("jump:")
 				return
 			end
 			-- iterate over 'output' lines
@@ -105,7 +107,7 @@ function ripgrep()
 		end)
 	end)
 end
-keymap_normal("<c-f>", ":ripgrep()<enter>")
+keymap_normal("<c-f>", ": ripgrep()<enter>")
 
 function verco()
 	windows_terminal_run_command_on_split("verco")
