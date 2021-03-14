@@ -1,19 +1,19 @@
 macro find-file {
-	spawn "fd -tf --path-separator / ." -split-on-byte=10 {
-		add-picker-entry $OUTPUT
+	spawn "fd -tf --path-separator / ." -split-on-byte=10 LINE {
+		add-picker-entry LINE
 	}
-	pick -prompt="open" {
-		open $ENTRY
+	pick -prompt="open" ENTRY {
+		open ENTRY
 	}
 }
 
 macro ripgrep {
-	read-line -prompt="rg:" {
-		spawn {rg --line-number --line-buffered $LINE} -split-on-byte=10 {
-			add-picker-entry $OUTPUT
+	read-line -prompt="rg:" PATTERN {
+		spawn {rg --line-number --line-buffered PATTERN} -split-on-byte=10 MATCH {
+			add-picker-entry MATCH
 		}
-		pick -prompt="jump:" {
-			open $ENTRY
+		pick -prompt="jump:" ENTRY {
+			open ENTRY
 		}
 	}
 }
