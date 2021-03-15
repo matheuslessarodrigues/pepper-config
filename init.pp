@@ -9,7 +9,7 @@ macro find-file {
 
 macro ripgrep {
 	read-line -prompt="rg:" PATTERN {
-		spawn {rg --line-number --line-buffered PATTERN} -split-on-byte=10 MATCH {
+		spawn "rg --line-number --line-buffered PATTERN" -split-on-byte=10 MATCH {
 			add-picker-entry MATCH
 		}
 		pick -prompt="jump:" ENTRY {
