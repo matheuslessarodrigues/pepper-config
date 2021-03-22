@@ -9,7 +9,7 @@ macro fuzzy-open-file {
 
 macro rg {
 	read-line -prompt="rg:" PATTERN {
-		open "rg-find-results" -command="rg --line-number macro"
+		open "rg-find-results" -command="rg --line-number --path-separator / PATTERN"
 	}
 }
 
