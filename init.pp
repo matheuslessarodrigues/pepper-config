@@ -1,4 +1,4 @@
-macro find-file {
+macro fuzzy-open-file {
 	spawn "fd -tf --path-separator / ." -split-on-byte=10 LINE {
 		add-picker-entry LINE
 	}
@@ -7,20 +7,14 @@ macro find-file {
 	}
 }
 
-macro ripgrep {
+macro rg {
 	read-line -prompt="rg:" PATTERN {
-		spawn "rg --line-number --line-buffered PATTERN" -split-on-byte=10 MATCH {
-			add-picker-entry MATCH
-		}
-		pick -prompt="jump:" ENTRY {
-			open ENTRY
-		}
+		open "rg-find-results" -command="rg --line-numbers PATTERN"
 	}
 }
 
-map -normal <c-s> :s<enter>
-map -normal <c-o> :find-file<enter>
-map -normal <c-f> :ripgrep<enter>
+map -normal <c-s> :<space>s<enter>
+map -normal <c-o> :<space>fuzzy-open-file<enter>
 
 source "langs/pp.pp"
 source "langs/lua.pp"
