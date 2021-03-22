@@ -1,5 +1,5 @@
 macro fuzzy-open-file {
-	spawn "fd -tf --path-separator / ." -split-on-byte=10 LINE {
+	spawn "fd -tf -0 --path-separator / ." -split-on-byte=0 LINE {
 		add-picker-entry LINE
 	}
 	pick -prompt="open" ENTRY {
@@ -9,7 +9,7 @@ macro fuzzy-open-file {
 
 macro rg {
 	read-line -prompt="rg:" PATTERN {
-		open "rg-find-results" -command="rg --line-numbers PATTERN"
+		open "rg-find-results" -command="rg --line-number macro"
 	}
 }
 
