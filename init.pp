@@ -7,10 +7,8 @@ macro fuzzy-open-file {
 	}
 }
 
-macro rg {
-	read-line -prompt="rg:" PATTERN {
-		open "rg-find-results" -command="rg --line-number --path-separator / PATTERN"
-	}
+macro rg PATTERN {
+	open "rg-find-results" -command="rg --line-number --path-separator / PATTERN"
 }
 
 map -normal <c-s> :<space>s<enter>
