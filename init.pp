@@ -8,7 +8,9 @@ macro fuzzy-open-file {
 }
 
 macro rg PATTERN {
-	open "rg-find-results" -command="rg --line-number --path-separator / PATTERN"
+	open -no-history -no-save -no-word-database "rg-find-results"
+	execute-keys "<esc>aad"
+	replace-with-output -split-on-byte=10 "rg --line-number --path-separator / PATTERN"
 }
 
 map -normal <c-s> :<space>s<enter>
