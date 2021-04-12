@@ -6,3 +6,5 @@ syntax "**/*.{c,h,cpp,hpp}" {
 	strings = {"{(\")!".}}
 	comments = {//{.}|/*{!(*/).$}}
 }
+
+lsp "**/*.{c,h,cpp,hpp}" "clangd" -log=clangd-log

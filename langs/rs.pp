@@ -6,3 +6,5 @@ syntax "**/*.rs" {
 	strings = {"{(\")!".}}
 	comments = {//{.}|/*{!(*/).$}}
 }
+
+lsp "**/*.rs" "rust-analyzer" -log=rust-analyzer-log

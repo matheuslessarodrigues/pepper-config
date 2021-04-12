@@ -6,3 +6,5 @@ syntax "**/*.cs" {
 	strings = {"{(\")!".}}
 	comments = {//{.}|/*{!(*/).$}}
 }
+
+lsp "**/*.cs" "omnisharp -lsp" -log=omnisharp-log
