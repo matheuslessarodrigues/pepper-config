@@ -18,9 +18,10 @@ map -normal <c-o> :<space>fuzzy-open-file<enter>
 
 map -normal K :lsp-hover<enter>
 map -normal gd :lsp-definition<enter>
-map -normal gr :lsp-references<enter>
+map -normal gr ":lsp-references -context=2<enter>"
 
 source "langs/pp.pp"
+source "langs/refs.pp"
 source "langs/lua.pp"
 source "langs/cs.pp"
 source "langs/rs.pp"
