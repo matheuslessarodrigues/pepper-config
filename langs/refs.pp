@@ -1,8 +1,8 @@
 syntax "**/*.refs" {
-	keywords = ""
+	keywords = {{%a/%.!:}|%w:{%a/%.!:}}
 	symbols = {,}
 	literals = {%d{%w%._}}
-	strings = {{%a/!:}|%w:{%a/!:}}
+	strings = ""
 	comments = ""
 	texts = {{%w-_}}
 }
