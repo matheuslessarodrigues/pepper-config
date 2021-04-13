@@ -19,6 +19,9 @@ map -normal <c-o> :<space>fuzzy-open-file<enter>
 map -normal K :lsp-hover<enter>
 map -normal gd :lsp-definition<enter>
 map -normal gr ":lsp-references -context=2<enter>"
+map -normal rr :lsp-rename<enter>
+map -normal ra :lsp-code-action<enter>
+map -normal rf :lsp-format<enter>
 
 source "langs/pp.pp"
 source "langs/refs.pp"
