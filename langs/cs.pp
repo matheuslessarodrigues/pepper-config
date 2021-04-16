@@ -7,4 +7,4 @@ syntax "**/*.cs" {
 	comments = {//{.}|/*{!(*/).$}}
 }
 
-lsp "**/*.cs" "omnisharp -lsp" -log=omnisharp-log
+lsp "**/*.cs" "omnisharp -lsp --encoding utf-8" -log=omnisharp-log
