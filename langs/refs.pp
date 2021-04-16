@@ -1,5 +1,5 @@
 syntax "**/*.refs" {
-	keywords = {{%a/%.!:}|%w:{%a/%.!:}}
+	keywords = {{%a/%._-!:}|%w:{%a/%._-!:}}
 	symbols = {,}
 	literals = {%d{%w%._}}
 	strings = ""
