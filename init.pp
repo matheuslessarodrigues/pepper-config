@@ -13,6 +13,10 @@ macro rg PATTERN {
 	replace-with-output -split-on-byte=10 "rg --line-number --path-separator / PATTERN"
 }
 
+macro verco {
+	spawn "wt -w 0 sp -p verco"
+}
+
 map -normal <c-o> :<space>fuzzy-open-file<enter>
 
 source "langs/pp.pp"
