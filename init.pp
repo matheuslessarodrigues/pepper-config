@@ -13,7 +13,6 @@ macro rg PATTERN {
 	replace-with-output -split-on-byte=10 "rg --line-number --path-separator / PATTERN"
 }
 
-map -normal <c-s> :<space>s<enter>
 map -normal <c-o> :<space>fuzzy-open-file<enter>
 
 source "langs/pp.pp"
