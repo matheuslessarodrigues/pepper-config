@@ -13,6 +13,10 @@ macro rg PATTERN {
 	replace-with-output -split-on-byte=10 "rg --line-number --path-separator / PATTERN"
 }
 
+macro shell {
+	spawn "wt -w 0 sp -p shell"
+}
+
 macro verco {
 	spawn "wt -w 0 sp -p verco"
 }
