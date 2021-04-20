@@ -4,4 +4,5 @@ syntax "**/*.js" {
 	symbols = {%(|%)|%[|%]|%{|%}|:|;|,|=|<|>|+|-|/|*|%%|%.|%!|?|&|%||@}
 	literals = {null|undefined|this|true|false|%d{%w%._}}
 	strings = {'{(\')!'.}|"{(\")!".}|`{(\`)!`.}}
+	comments = {//{.}|/*{!(*/).$}}
 }
