@@ -1,5 +1,5 @@
 syntax "**/*.md" {
-	keywords = {#{.}$}
+	keywords = "#{.}$"
 	symbols = {%||%!|-}
 	literals = {%[{!%].}%({!%).}}
 	strings = {```{!(```).$}|`{(\`)!`.}}
