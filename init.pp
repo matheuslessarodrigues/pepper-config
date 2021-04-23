@@ -1,5 +1,5 @@
 macro fuzzy-open-file {
-	spawn "fd -tf -0 --path-separator / . --ignore-file .cignore" -split-on-byte=0 LINE {
+	spawn "fd -tf -0 --path-separator / ." -split-on-byte=0 LINE {
 		add-picker-entry LINE
 	}
 	pick -prompt="open" ENTRY {
@@ -10,7 +10,7 @@ macro fuzzy-open-file {
 macro rg PATTERN {
 	open -no-history -no-save -no-word-database "rg-find-results.refs"
 	execute-keys "<esc>aad"
-	replace-with-output -split-on-byte=10 "rg --line-number --path-separator / --no-ignore-global --ignore-file .cignore PATTERN"
+	replace-with-output -split-on-byte=10 "rg --line-number --path-separator / --no-ignore-global PATTERN"
 }
 
 macro verco {
