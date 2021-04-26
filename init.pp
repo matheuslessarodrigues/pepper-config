@@ -1,6 +1,6 @@
 macro fuzzy-open-file {
 	spawn "fd -tf -0 --path-separator / ." -split-on-byte=0 LINE {
-		add-picker-entry LINE
+		add-picker-option LINE
 	}
 	pick -prompt="open" ENTRY {
 		open ENTRY
