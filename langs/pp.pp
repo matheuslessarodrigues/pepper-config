@@ -3,6 +3,6 @@ syntax "**/*.pp" {
 	symbols = {=|%{|%}}
 	literals = {-{%w-_}|{%u%d_}}
 	strings = {'{(\')!'.}|"{(\")!".}}
-	comments = {#{.}}
+	comments = "#{.}"
 	texts = {{%w-_}}
 }
