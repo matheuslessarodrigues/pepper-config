@@ -28,3 +28,7 @@ source "langs/rs.pp"
 source "langs/html.pp"
 source "langs/js.pp"
 source "langs/md.pp"
+
+try {
+	source -project "project.pp"
+}
