@@ -19,13 +19,6 @@ macro verco {
 
 map -normal <c-o> :<space>fuzzy-open-file<enter>
 
-source "langs/pp.pp"
-source "langs/refs.pp"
-source "langs/lua.pp"
-source "langs/cs.pp"
-source "langs/c.pp"
-source "langs/rs.pp"
-source "langs/html.pp"
-source "langs/js.pp"
-source "langs/md.pp"
+lsp "**/*.rs" "rust-analyzer" -log=rust-analyzer-log
+lsp "**/*.cs" "omnisharp -lsp --encoding utf-8" -log=omnisharp-log
 
