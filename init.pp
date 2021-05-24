@@ -21,4 +21,5 @@ map -normal <c-o> :<space>fuzzy-open-file<enter>
 
 lsp "**/*.rs" "rust-analyzer" -log=rust-analyzer-log
 lsp "**/*.cs" "omnisharp -lsp --encoding utf-8" -log=omnisharp-log
+#lsp "**/*.{c,h,cpp,hpp}" "clangd --offset-encoding=utf-8 --log=verbose" -log=clangd-log
 
